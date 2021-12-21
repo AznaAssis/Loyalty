@@ -16,6 +16,7 @@
                             <th rowspan="1" colspan="1">City</th>
                             <th rowspan="1" colspan="1">Pincode</th>
                             <th rowspan="1" colspan="1">Credit points</th>
+                            <th rowspan="1" colspan="1">total prize</th>
                         </tr>
                     </thead>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -29,7 +30,8 @@
                         <td class=" ">{{$val->city}}</td>
                         <td class=" ">{{$val->pincode}}</td>
                         <td class=" ">{{$val->creditpoints}}</td>
-                        <!-- <td class=" "><a href="editp/{{ $val->id}}">Edit {{$val->pname}}</a></td> -->
+                        <td class=" ">{{$val->total}}</td>
+                        <td class=" "><a href="editpoints/{{ $val->id}}"></a></td>
                       </tr>
                       @endforeach
                     </tbody>

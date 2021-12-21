@@ -8,6 +8,7 @@ use App\models\product;
 use App\models\booking;
 use App\models\wishli;
 use App\models\contact;
+use App\models\orders;
 class cController extends Controller
 {
     /**
@@ -91,11 +92,10 @@ return view('customer.vccart',$data);
     public function cart()
     {
         $id=session('sess');
-        $data['res']= 
-        booking::join('products', 'products.id', '=', 'bookings.p_id')
+        $data['res']= booking::join('products', 'products.id', '=', 'bookings.p_id')
         ->distinct()
         ->where('bookings.c_id',$id)
-        ->where('bookings.status',"cart")
+        ->where('bookings.status','cart')
         ->select(['products.pimg','products.pname','products.Prize','bookings.qnty', 'bookings.prize', 'bookings.p-method','bookings.status','bookings.id'])
         ->get();
         return view("customer.ccart",$data);
@@ -131,11 +131,59 @@ return view('customer.vccart',$data);
        $qnty=$req->input('qnty');
        $total=$req->input('total');
        $data=[
-        'p_id'=>$pid,
+        // ?'p_id'=>$pid,
         'prize'=>$total,
         'qnty'=>$qnty
     ];
         $res=booking::where('id',$id)->update($data);
-        print_r($res);
+        // print_r($res);
     }
+    public function proceed()
+    {
+        $id=session('sess');
+        // $pid=booking::where('c_id',$id)->value('p_id');
+        // echo $prize;
+        // exit();
+        $data['res']=booking::join('products', 'products.id', '=', 'bookings.p_id')
+        ->where('bookings.c_id',$id)
+        ->where('bookings.status',"cart")
+        ->select(['products.pimg','products.pname','products.Prize','bookings.qnty', 'bookings.prize', 'bookings.p-method','bookings.status','bookings.id'])
+        ->get();
+        $data['sum']=booking::sumdata('bookings',$id);
+        return view("customer.proceed",$data);
+    }
+    public function bookp(request $req)
+    {
+        $id=session('sess');
+        $total=$req->input('ttotal');
+        $da=['status'=>'order'];
+        $val=booking::where('c_id',$id)->update($da);
+        $data=[
+        'cid'=>$id,
+        'total'=>$total
+    ];
+        $res=orders::insert($data);
+
+    return redirect('/payments');
+    }
+    public function vieworders()
+    {
+        $id=session('sess');
+        $data['res']=booking::join('products', 'products.id', '=', 'bookings.p_id')
+        ->join('orders','orders.cid','=', 'bookings.c_id')
+        ->where('bookings.c_id',$id)
+        ->where('bookings.status',"order")
+        ->select(['products.pimg','products.pname','products.Prize','bookings.qnty', 'bookings.prize', 'bookings.p-method','bookings.status','bookings.id'])
+        ->get();
+        $data['sum']= orders::where('cid',$id)->get();
+        return view("customer.vieworders",$data);
+    }
+    public function payment()
+    {
+        $id=session('sess');
+        $data['res']=order::where('id',$id)->get();
+        return view("customer.payment",$data);
+    }
+   
+    
 }

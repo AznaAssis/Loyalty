@@ -61,14 +61,16 @@
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="/chome" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">products</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="/viewproducts">Products</a>
               	<!-- <a class="dropdown-item" href="/cwishlist">Wishlist</a> -->
                 <a class="dropdown-item" href="/ccart">Cart</a>
               </div>
             </li>
+            <li class="nav-item"><a href="/vieworders" class="nav-link">View order</a></li>
             <li class="nav-item"><a href="/ccontact" class="nav-link">Contact</a></li>
+
 	          <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
 	          <li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 

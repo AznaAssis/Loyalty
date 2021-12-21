@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\models\manager;
 use App\models\product;
 use App\models\customer;
+// use App\models\product;
+use App\models\booking;
 class mController extends Controller
 {
     public function mreg()
@@ -24,8 +26,20 @@ class mController extends Controller
     }
     public function viewcust()
     {
-        $data['res']=customer::get();
-        return view('manager.viewcust',$data    );
+        $id=session('sess');
+        $sname=manager::where('id',$id)->value('sname');
+        $data['res']=customer::join('orders','orders.cid','=','customers.id')
+        ->join('bookings','bookings.c_id','=','customers.id')
+        ->join('products','products.id','=','bookings.p_id')
+        ->join('managers','managers.sname','=','products.shop_name')
+        ->distinct()
+        ->where('managers.sname',$sname)
+        ->where('managers.id',$id)
+        ->select(['customers.name','customers.phno','customers.email','customers.creditpoints', 'customers.id', 'customers.id', 'customers.address','customers.city','customers.pincode'])
+        ->get();
+        // print $data;
+        // exit();
+        return view('manager.viewcust',$data);
     }
     public function view()
     {
