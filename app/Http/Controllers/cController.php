@@ -9,6 +9,7 @@ use App\models\booking;
 use App\models\wishli;
 use App\models\contact;
 use App\models\orders;
+use App\models\payment;
 class cController extends Controller
 {
     /**
@@ -164,7 +165,7 @@ return view('customer.vccart',$data);
     ];
         $res=orders::insert($data);
 
-    return redirect('/payments');
+    return redirect('/payment');
     }
     public function vieworders()
     {
@@ -181,9 +182,36 @@ return view('customer.vccart',$data);
     public function payment()
     {
         $id=session('sess');
-        $data['res']=order::where('id',$id)->get();
+        $data['res']=orders::join('customers', 'customers.id', '=', 'orders.cid')
+        ->where('orders.cid',$id)
+        ->where('customers.id',$id)
+        ->select(['customers.id','customers.creditpoints','orders.status','orders.total'])
+        ->get();
+        //  echo $data;
+        // exit();
         return view("customer.payment",$data);
     }
    
-    
+    public function pay(request $req)
+    {
+        $id=session('sess');
+        $cnumber=$req->input('cnumber');
+        $cname=$req->input('name');
+        $amount=$req->input('amount');
+        $expdate=$req->input('expdate');
+        $cvv=$req->input('cvv');
+        $da=['status'=>'payed'];
+        $val=orders::where('cid',$id)->update($da);
+        $data=[
+        'cid'=>$id,
+        'cnumber'=>$cnumber,
+        'cname'=>$cname,
+        'amount'=>$amount,
+        'expdate'=>$expdate,
+        'cvv'=>$cvv
+    ];
+        $res=payment::insert($data);
+
+    return redirect('/viewproducts')->with('alert','Payment successfully');
+    }
 }

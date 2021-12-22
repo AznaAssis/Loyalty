@@ -15,7 +15,7 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <label for="cnumber">Card Number</label>
-                        <input type="text" name="cnumber" id="cnumber" class="form-control" placeholder=" Card Number" pattern="[0-9]{10}" required>
+                        <input type="number" name="cnumber" id="cnumber" class="form-control" placeholder=" Card Number" pattern="[0-9]{12}" required>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -25,7 +25,11 @@
                     </div>
                     <div class="col">
                         <label for="amount">Amount to Pay</label>
-                        <input type="text" name="amount" id="amount" class="form-control" placeholder=" Enter Amount" required>
+                        @foreach($res as $val)
+                        @if($val->status=="book")
+                        <input type="text" name="amount" id="amount" class="form-control" value="{{$val->total}}" required>
+                        @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="row form-group">

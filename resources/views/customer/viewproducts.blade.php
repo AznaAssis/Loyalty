@@ -12,6 +12,7 @@
 					<a href="#" class="img-prod"><img class="img-fluid" src="pimage/{{$val->pimg}}" style="height:200px;" alt="Colorlib Template">
                         <p>{{$val->pname}}</p>
                         <p><input type="hidden" name="prize" value="{{$val->Prize}}"><strong>Price: </strong> {{$val->Prize}}</p>
+                        <p><input type="hidden" name="prize" value="{{$val->shop_name}}"><strong>Price: </strong> {{$val->shop_name}}</p>
                         <p class="btn-holder"><a href="/addcart/{{$val->id}}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
                     </div>
                 </div>

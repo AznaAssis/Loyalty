@@ -38,12 +38,14 @@ class mController extends Controller
         ->select(['customers.name','customers.phno','customers.email','customers.creditpoints', 'customers.id', 'customers.id', 'customers.address','customers.city','customers.pincode'])
         ->get();
         // print $data;
-        // exit();
+        // exit();$sname=manager::where('id',$id)->value('sname');
         return view('manager.viewcust',$data);
     }
     public function view()
     {
-        $data['res']=product::get();
+        $id=session('sess');
+        $sname=manager::where('id',$id)->value('sname');
+        $data['res']=product::where('shop_name',$sname)->get();
         return view('manager.viewproduct',$data);
     }
     public function editp($id)

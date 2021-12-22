@@ -67,3 +67,4 @@ Route::get('/viewtotal',[cController::class,'viewtotal']);
 Route::post('/bookp',[cController::class,'bookp']);
 Route::get('/vieworders',[cController::class,'vieworders']);
 Route::get('/payment',[cController::class,'payment']);
+Route::post('/pay',[cController::class,'pay']);
