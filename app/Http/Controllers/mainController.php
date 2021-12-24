@@ -16,28 +16,32 @@ class mainController extends Controller
      */
     public function index()
     {
+        $data['result']=contact::get();
         $data['res']=product::where('status',"Approve")->get();
         return view("user.index",$data);
     }
     public function about()
     {
-        $data2['res']=about::get();
-        // $data['result']=contact::get();
-        return view('user.about',$data2);
+        $data['res']=about::get();
+        $data['result']=contact::get();
+        return view('user.about',$data);
     }
     public function logout(Request $req) {
         Auth::logout();
         $data['res']=product::where('status',"Approve")->get();
+        $data['result']=contact::get();
         return view('user.index',$data);
     }
     public function contact() 
     {
         $data['res']=contact::get();
+        $data['result']=contact::get();
         return view('user.contact1',$data);
       }
       public function shop() 
     {
         $data['res']=contact::get();
+        $data['result']=contact::get();
         return view('user.shop',$data);
       }
     

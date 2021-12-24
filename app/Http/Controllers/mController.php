@@ -6,23 +6,32 @@ use Illuminate\Http\Request;
 use App\models\manager;
 use App\models\product;
 use App\models\customer;
-// use App\models\product;
+use App\models\contact;
 use App\models\booking;
 class mController extends Controller
 {
     public function mreg()
     {
-        return view('manager.mreg');
+        $data['result']=contact::get();
+        return view('manager.mreg',$data);
     }
     public function mlog()
     {
-        return view('manager.mlog');
+        $data['result']=contact::get();
+        return view('manager.mlog',$data);
     }
     public function home()
     {
         $id=session('sess');
         $data['res']=manager::where('id',$id)->get();
         return view('manager.mhome',$data);
+    }
+    public function updatemanager()
+    {
+        $id=session('sess');
+        
+        $data['res']=manager::where('id',$id)->get();
+        return view('manager.updatemanager',$data);
     }
     public function viewcust()
     {
@@ -83,6 +92,31 @@ class mController extends Controller
         $res=manager::insert($data);
     return redirect('/mlog');
     }
+    public function upm(request $req)
+    {
+        $id=session('sess');
+        $name=$req->input('name');
+        $sname=$req->input('sname');
+        $email=$req->input('email');
+        $phno=$req->input('phno');
+        $city=$req->input('city');
+        $pincode=$req->input('pincode');
+        $uname=$req->input('uname');
+        $password=$req->input('password');
+        $data=[
+        'name'=>$name,
+        'sname'=>$sname,
+        'email'=>$email,
+        'city'=>$city,
+        'phno'=>$phno,
+        'pincode'=>$pincode,
+        'username'=>$uname,
+        'password'=>$password,
+        'status'=>'Approve'
+    ];
+        $res=manager::where('id',$id)->update($data);
+    return redirect('/mhome');
+    }
     public function login(request $req)
     {
         $uname=$req->input('uname');
@@ -138,11 +172,6 @@ class mController extends Controller
         $qnty=$req->input('qnty');
         $prize=$req->input('prize');
         $pdate=$req->input('pdate');
-        // $pimage=$req->file('pimage');
-        // echo $pimage;
-        // exit();
-        // $filename=$pimage->getClientOriginalName();
-        // $pimage->move(public_path().'/pimage/',$filename);
         $ptype=$req->input('ptype');
         $status=$req->input('status');
         $data=[

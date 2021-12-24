@@ -64,7 +64,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="/shop">View Products</a>
-              	<a class="dropdown-item" href="/clog">Buy Products</a>
+              	<!-- <a class="dropdown-item" href="/clog">Buy Products</a> -->
                 <!-- <a class="dropdown-item" href="/cart">Cart</a> -->
               </div>
             </li>
@@ -190,11 +190,13 @@
             <div class="ftco-footer-widget mb-4">
             	<h2 class="ftco-heading-2">Have a Questions?</h2>
             	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">Ernakulam Cochin 678876</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91 6878 8765 93</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">bigmart@contact.com</span></a></li>
+	              @foreach($result as $value)
+                <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">{{$value->address}}</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">{{$value->phno}}</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">{{$value->email}}</span></a></li>
 	              </ul>
+                @endforeach
 	            </div>
             </div>
           </div>

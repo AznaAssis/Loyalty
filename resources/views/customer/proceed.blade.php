@@ -5,7 +5,7 @@
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
     				<div class="container">
-						<form action="/bookp" method="post">
+						<!-- <form  method="post" id="frm"> -->
 							@csrf
 <table class="table" id="tableid">
 						    <thead class="thead-primary">
@@ -45,24 +45,85 @@
 								<tr>
 								<td>&nbsp;</td>
 						        <td>&nbsp;</td>
-								<td><b></b></td>
+								<td></td>
 								<td >Total</td>
 								@foreach($sum as $v)
 								<td >  {{$v->psum}}</td>
 								<input type="hidden" name="ttotal" id="ttotal" value="{{$v->psum}}">
 								@endforeach
 </tr>
+<tr>		
+								<td>&nbsp;</td>	
+								<td>&nbsp;</td>	
+								<td>&nbsp;</td>	
+								<td><b>Total credit points</b></td>
+						        @foreach($cp as $val) <td>{{$val->creditpoints}}</td>
+								<input type="hidden" name="cp" id="cp" value="{{$val->creditpoints}}">@endforeach
+</tr>
 <tr>
-<td>&nbsp;</td>
-						        <td>&nbsp;</td>
 								<td>&nbsp;</td>
-						        <td>&nbsp;</td>
-	<td><input type="submit" value="Book now" class="btn btn-primary"></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<!-- <td><input type="submit" class="btn btn-primary btn-block" value="Credit purchase" id="cpp"></td> -->
+								<td>@foreach($sum as $v)
+								@foreach($cp as $val)
+								@if(($v->psum)>=($val->creditpoints))
+								<b><a href="/bookp/{{$v->psum}}"><button type="submit" class="btn btn-primary btn-block" style="color:white;"> <b>cash purchase</b></button></a></b>
+								@else
+								<a href="/creditp/{{$v->psum}}"><button type="submit" class="btn btn-primary btn-block" style="color:white;"><b> credit purchase</b></button></a>
+								@endif
+								@endforeach
+								@endforeach
+							</td>
+								
 </tr>
 
 </table>
 
 </form> 
-    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$cp=("#cp").val()
+			alert(cp)
+			// if(<=)
+		$("#pur").on('click', function()
+		{
+			$cp=("#cp").val()
+			alert(cp)
+            var row = $(this).closest('tr');
+    var pid = parseInt(row.find("ttotal").val());
+    alert(pid)    
+    var qnty = parseInt(row.find(this).val());
+    // alert(qnty)
+    var prize = parseInt(row.find('#prize').val());
+    // alert(prize)
+    var total= parseInt(qnty)*parseInt(prize);
+    // alert(total)
+    // row.find('#total').html(total);
+	row.find('#total').val(total);
+	var x = row.find('#cartid').val();
+	// alert(x)
+			$.ajax({
+				type:"get",
+				url:"/totalprize/"+x,
+				data:{
+                    // pid:pid,
+					qnty:qnty,
+                    total:total
+				},
+				success:function(result)
+				{ 
+					$('#total').html(result);
+				}
+			});
+			location.reload(true);
+		});
+	});
+
+</script>
+	</script>
 	
 @endsection

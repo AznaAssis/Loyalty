@@ -68,11 +68,12 @@
                 <a class="dropdown-item" href="/ccart">Cart</a>
               </div>
             </li>
-            <li class="nav-item"><a href="/vieworders" class="nav-link">View order</a></li>
+            <li class="nav-item"><a href="/updatecust" class="nav-link">Update profile</a></li>
+            <!-- <li class="nav-item"><a href="/vieworders" class="nav-link">View order</a></li> -->
             <li class="nav-item"><a href="/ccontact" class="nav-link">Contact</a></li>
 
 	          <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
-	          <li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <!-- <li class="nav-item cta cta-colored"><a href="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li> -->
 
 	        </ul>
 	      </div>

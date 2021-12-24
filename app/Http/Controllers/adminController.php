@@ -17,7 +17,8 @@ class adminController extends Controller
     }
     public function alogin()
     {
-        return view("admin.adminlogin");
+        $data['result']=contact::get();
+        return view("admin.adminlogin",$data);
     }
     public function about()
     {
@@ -80,6 +81,7 @@ class adminController extends Controller
     }
     public function addcntct(request $req)
     {
+
         $address=$req->input('address');
         $email=$req->input('email');
         $phno=$req->input('phno');
@@ -87,8 +89,15 @@ class adminController extends Controller
         'email'=>$email,
         'phno'=>$phno
     ];
-       $res=contact::insert($data);
-    return redirect('/vabout');
+    $contact = contact::all();
+    if($contact->isEmpty())
+    {
+        $res=contact::insert($data);
+    }
+    else{
+        $res=contact::where('id',1)->update($data);
+    }
+    return redirect('/adminhome');
     }
     public function editabt(request $req,$id)
     {

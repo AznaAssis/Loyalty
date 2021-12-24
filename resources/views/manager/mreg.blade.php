@@ -4,7 +4,7 @@
       <div class="container">
         <div class="row justify-content-center" >
           <div class="col-xl-7 ftco-animate">
-						<form action="/mregaction"  method="post" class="billing-form">
+						<form action="/mregaction" id="frm"  method="post" class="billing-form">
                             @csrf
 							<center><h1 class="mb-4 billing-heading"><b>MANAGER REGISTRATION</b></h1></center>
 							<div >
@@ -62,4 +62,43 @@
 	            </div>
 	          </form><!-- END -->
 					</div>
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script type="text/javascript">
+    $('#frm').validate({
+        rules:{
+            sname:{
+				minlength:3,
+                required:true
+            },
+            name:{
+                required:true,
+                minlength:3
+            },
+            city:{
+                required:true
+            },
+            phno:{
+				maxlength:10,
+                required:true
+            },
+            email:{
+				email:true,
+                required:true
+            },
+            pincode:{
+                required:true,
+                minlength:3
+            },
+            uname:{
+                required:true,
+                minlength:3
+            },
+            password:{
+                required:true,
+                minlength:3
+            }
+        },
+    })
+    </script>
 @endsection

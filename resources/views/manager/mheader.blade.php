@@ -67,6 +67,7 @@
               	<a class="dropdown-item" href="/viewproduct">View Products</a>
               	<a class="dropdown-item" href="/addproducts">Add Products</a>
               </div>
+              <li class="nav-item"><a href="/updatemanager" class="nav-link">Update profile</a></li>
             </li>
             <li class="nav-item active"><a href="/logout" class="nav-link"> Logout</a></li>
 
