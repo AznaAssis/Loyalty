@@ -10,6 +10,7 @@ use App\models\wishli;
 use App\models\contact;
 use App\models\orders;
 use App\models\payment;
+use Mail;
 class cController extends Controller
 {
     public function creg()
@@ -64,8 +65,17 @@ return view('customer.vccart',$data);
         'pincode'=>$pincode,
         'username'=>$uname,
         'password'=>$password,
+
     ];
+
         $res=customer::insert($data);
+        $mail=['name'=>$name,
+                'msg'=>'Welcome to Loyalty.com'];
+                $user['to']=$email;
+                Mail::send('email',$mail,function($message) use($user){
+                    $message->to($user['to']);
+                    $message->subject('Email Sending');
+                });
     return redirect('/clog');
     }
     public function upc(request $req)
@@ -133,7 +143,8 @@ return view('customer.vccart',$data);
     }
     public function addcart($id)
     {
-        $cid=session('sess');d)->value('Prize');
+        $cid=session('sess');
+        // d)->value('Prize');
         // echo $prize;
         // exit();
         $data=[
