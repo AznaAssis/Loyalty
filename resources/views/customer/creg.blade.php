@@ -76,6 +76,7 @@
             },
             email:{
 				email:true,
+				unique:true,
                 required:true
             },
             address:{

@@ -70,7 +70,7 @@ return view('customer.vccart',$data);
 
         $res=customer::insert($data);
         $mail=['name'=>$name,
-                'msg'=>'Welcome to Loyalty.com'];
+                'msg'=>'Welcome to BigMart'];
                 $user['to']=$email;
                 Mail::send('email',$mail,function($message) use($user){
                     $message->to($user['to']);
