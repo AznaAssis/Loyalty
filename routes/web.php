@@ -10,9 +10,8 @@ Route::get('/',[mainController::class,'index']);
 Route::get('/about',[mainController::class,'about']);
 Route::get('/logout',[mainController::class,'logout']);
 Route::get('/contact',[mainController::class,'contact']);
-Route::get('/shop',[mainController::class,'shop']);
-Route::get('/wishlist',[mainController::class,'wishlist']);
-Route::get('/contact',[mainController::class,'contact']);
+// Route::get('/contact',[mainController::class,'contact']);
+
 
 //admin
 Route::get('/adminhome',[adminController::class,'ahome']);

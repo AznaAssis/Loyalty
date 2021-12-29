@@ -38,11 +38,4 @@ class mainController extends Controller
         $data['result']=contact::get();
         return view('user.contact1',$data);
       }
-      public function shop() 
-    {
-        $data['res']=contact::get();
-        $data['result']=contact::get();
-        return view('user.shop',$data);
-      }
-    
 }
